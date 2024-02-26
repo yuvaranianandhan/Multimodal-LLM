@@ -23,7 +23,7 @@ def get_response(input,image):
             response = model.generate_content([input, image])
             return response.text
         else:
-            response = model1.generate_content(input)
+            response = model1.generate_content([input,None])
             return response.text
     else:
         if image is not None:
