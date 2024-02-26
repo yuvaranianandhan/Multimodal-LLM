@@ -59,7 +59,7 @@ submit = st.button("Generate")
 ## when submit button is clicked,
 
 if submit:
-   response_text,response_time = get_response(input,image)
+    response_text,response_time = get_response(input,image)
     
     st.subheader("The Generated Content:")
     st.write(response_text)
