@@ -25,8 +25,6 @@ def get_response(input,image):
         else:
             response = model1.generate_content(input)
             return response.text
-    
-
     else:
         if image is not None:
             response = model.generate_content(image)
