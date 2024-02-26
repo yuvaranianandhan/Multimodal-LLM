@@ -6,6 +6,7 @@ import streamlit as st
 import os
 import google.generativeai as genai
 from PIL import Image
+import time
 
 #-------------------------------------------#
 
@@ -18,21 +19,24 @@ model1 = genai.GenerativeModel("gemini-pro")
 
 def get_response(input,image):
 
+    start_time = time.time()
+    
     if input != '' and image is not None:
         response = model.generate_content([input,image])
         
-    
     elif image == None:
         response = model1.generate_content(input)
-      
-    
         
     else:
         response = model.generate_content(image)
         #response =  response.parts
         #for part in response:
             #return (part.text)
-    return response.text
+    end_time = time.time()
+    response_time = end_time - start_time
+    
+    return response.text,response_time
+   
 
     
 # To set up streamlit
@@ -55,6 +59,8 @@ submit = st.button("Generate")
 ## when submit button is clicked,
 
 if submit:
-    response = get_response(input,image)
+   response_text,response_time = get_response(input,image)
+    
     st.subheader("The Generated Content:")
-    st.write(response)
+    st.write(response_text)
+    st.write("Response Time :" ,response_time)
