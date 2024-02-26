@@ -13,49 +13,43 @@ genai.configure(api_key= os.getenv("GOOGLE_API_KEY"))
 
 # creating function to load gemini pro model
 
-model = genai.GenerativeModel("gemini-pro-vision") # model optimized for images
-model1 = genai.GenerativeModel("gemini-pro")   # model optimized for text data
+model = genai.GenerativeModel("gemini-pro-vision")
+model1 = genai.GenerativeModel("gemini-pro")
 
 def get_response(input,image):
 
-    if input != '':
-        if image is not None:
-            response = model.generate_content([input, image])
-            return response.text
-        else:
-            response = model1.generate_content([input,None])
-            return response.text
+    if input != '' and image is not None:
+        response = model.generate_content([input,image])
+        
+    
+    elif image == None:
+        response = model1.generate_content(input)
+      
+    
+        
     else:
-        if image is not None:
-            response = model.generate_content(image)
-            return response.text
-        else:
-            response = "Please provide either an input prompt or upload an image."
-            return response.text
+        response = model.generate_content(image)
+        #response =  response.parts
+        #for part in response:
+            #return (part.text)
+    return response.text
 
     
-
 # To set up streamlit
 
-st.set_page_config(page_title="Content Generation model using Gemini")
-st.header("LLM MODEL")
+st.set_page_config(page_title="Content Generation LLM Model using Gemini")
+st.header("Content Generation LLM Model ")
 
 input = st.text_input("Input Prompt", key="input")
 
 
 uploaded_file = st.file_uploader("Input Image", type=["jpg", "jpeg", "png"])
-
-image=""  
-
+image=None
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
-else:
-    image = None
-    
 
-
-submit = st.button("submit")
+submit = st.button("Generate")
 
 
 ## when submit button is clicked,
