@@ -26,8 +26,8 @@ def get_response(input,image):
 
 # To set up streamlit
 
-st.set_page_config(page_title="Q & A using Gemini")
-st.header("Q&A Application")
+st.set_page_config(page_title="Content Generative Model using Gemini")
+st.header("LLM Model")
 
 input = st.text_input("Input Prompt", key="input")
 
@@ -38,7 +38,7 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
-submit = st.button("submit")
+submit = st.button("Generate the Response")
 
 
 ## when submit button is clicked,
@@ -46,4 +46,4 @@ submit = st.button("submit")
 if submit:
     response = get_response(input,image)
     st.subheader("The Generated Content:")
-    st.write_stream(response)
+    st.write(response)
