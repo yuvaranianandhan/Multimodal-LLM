@@ -37,8 +37,8 @@ def get_response(input,image):
 
 # To set up streamlit
 
-st.set_page_config(page_title="Q & A using Gemini")
-st.header("Q&A Application")
+st.set_page_config(page_title="Content Generation model using Gemini")
+st.header("LLM MODEL")
 
 input = st.text_input("Input Prompt", key="input")
 
